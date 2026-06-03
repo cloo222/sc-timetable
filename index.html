@@ -171,35 +171,13 @@
                     timetable_lm.addEvent(username, parsedChineseDate, new Date(combinedStartDate), new Date(combinedEndDate));
                 }
                 // console.log(lm_booking_data);
-                // timetable.addEvent('Frankadelic', 'Nile', new Date(2015,7,17,10,45), new Date(2015,7,17,12,30));
-                // var options = {
-                // url: '#', // makes the event clickable
-                // class: 'vip', // additional css class
-                // data: { // each property will be added to the data-* attributes of the DOM node for this event
-                //     id: 4,
-                //     ticketType: 'VIP'
-                // },
-                // onClick: function(event, timetable, clickEvent) {} // custom click handler, which is passed the event object and full timetable as context  
-                // };
-                // timetable.addEvent('Jam Session', 'Nile', new Date(2015,7,17,21,15), new Date(2015,7,17,23,30), options);
                 var renderer = new Timetable.Renderer(timetable_lm);
                 renderer.draw('.timetable-lm'); // any css selector
 
                 //VM
                 var timetable_vm = new Timetable();
                 timetable_vm.setScope(8, 1);
-                // Instead of locations, generate a list of string of dates of the next 15 days
-                // const today = new Date();
-                // const dates = [];
-
-                // for (let i = 0; i < 15; i++) {
-                //     const date = new Date(today);
-                //     date.setDate(date.getDate() + i);
-                //     date.setUTCHours(date.getUTCHours() + 8); // Add 8 hours to account for GMT+8 time zone
-                //     const dateWithChineseWeekday = getDateWithChineseWeekday(date);
-                //     dates.push(dateWithChineseWeekday);
-                // }
-
+                
                 timetable_vm.addLocations(dates);
                 // parse each vm_booking entry
                 vm_booking_data = data[1]["vm_booking"];
