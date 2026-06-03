@@ -76,15 +76,6 @@
                 </div>
             </div>
         </div>
-        <!-- <div class="alert alert-dark mb-3 shadow-sm" role="alert">
-            <a href="https://forms.gle/Frwr2zT2RTEz1LrBA" class="alert-link">BOOKING FORM</a>
-            -
-            <a href="https://www.facebook.com/Silvercordgame" class="alert-link">Facebook</a>
-            -
-            <a href="https://www.youtube.com/@SilvercordTST" class="alert-link">Youtube</a>
-            -
-            <a href="https://discord.gg/Jg5hfUGVu2" class="alert-link">私立香港音ゲー學園 Discord</a>
-        </div> -->
 
         <div class="bg-white shadow-lg mb-3 mt-3">
             <span class="d-flex justify-content-center align-items-center iidx-header">
@@ -107,8 +98,8 @@
             $(document).ready(function () {
                 var bookinglink = "https://script.google.com/macros/s/AKfycbwmZl9Wv14mJysfdGc1_y12GzNK0djb167u9Oqrvz8rEcBZGvnGi5JHa6wfSembQxEKXg/exec";
                 $.getJSON(bookinglink, function (information) {
-                    console.log("loading");
-                    console.log(information); 
+                    console.log("fetching data...");
+                    // console.log(information); 
                     loadTimeTable(information);
                 });
             });
@@ -136,7 +127,7 @@
                     date.setUTCHours(date.getUTCHours() + 8); // Add 8 hours to account for GMT+8 time zone
                     const dateWithChineseWeekday = getDateWithChineseWeekday(date);
                     dates.push(dateWithChineseWeekday);
-                    console.log("adding date:", dateWithChineseWeekday);
+                    // console.log("adding date:", dateWithChineseWeekday);
                 }
 
                 timetable_lm.addLocations(dates);
@@ -156,8 +147,8 @@
                     const formattedDate = date.toLocaleDateString('en-US', options);
                     const parsedChineseDate = getDateWithChineseWeekday(date);
 
-                    console.log(start_time + " " + end_time + " " + duration + " " + username + " " + booking_date);
-                    console.log(formattedDate); // Output: 5/24/2026, Monday
+                    // console.log(start_time + " " + end_time + " " + duration + " " + username + " " + booking_date);
+                    // console.log(formattedDate); // Output: 5/24/2026, Monday
                     const [hours, minutes] = start_time.split(':');
                     const startDate = new Date(formattedDate);
                     startDate.setHours(parseInt(hours));
@@ -170,17 +161,16 @@
                     endDate.setMinutes(parseInt(minutes2));
                     endDate.setUTCHours(endDate.getUTCHours() + 8); // Add 8 hours to account for GMT+8 time zone
                     const combinedEndDate = `${endDate.toISOString().split('T')[0]}T${end_time}:00`;
-                    console.log(combinedStartDate);
-                    console.log(combinedEndDate);
-                    console.log(parsedChineseDate);
+                    // console.log(combinedStartDate);
+                    // console.log(combinedEndDate);
+                    // console.log(parsedChineseDate);
 
                     if (date < new Date()) {
-                        console.log("date " + date + " is in the past");
                         continue;
                     }
                     timetable_lm.addEvent(username, parsedChineseDate, new Date(combinedStartDate), new Date(combinedEndDate));
                 }
-                console.log(lm_booking_data);
+                // console.log(lm_booking_data);
                 // timetable.addEvent('Frankadelic', 'Nile', new Date(2015,7,17,10,45), new Date(2015,7,17,12,30));
                 // var options = {
                 // url: '#', // makes the event clickable
@@ -228,8 +218,8 @@
                     const formattedDate = date.toLocaleDateString('en-US', options);
                     const parsedChineseDate = getDateWithChineseWeekday(date);
 
-                    console.log(start_time + " " + end_time + " " + duration + " " + username + " " + booking_date);
-                    console.log(formattedDate); // Output: 5/24/2026, Monday
+                    // console.log(start_time + " " + end_time + " " + duration + " " + username + " " + booking_date);
+                    // console.log(formattedDate); // Output: 5/24/2026, Monday
                     const [hours, minutes] = start_time.split(':');
                     const startDate = new Date(formattedDate);
                     startDate.setHours(parseInt(hours));
@@ -242,16 +232,16 @@
                     endDate.setMinutes(parseInt(minutes2));
                     endDate.setUTCHours(endDate.getUTCHours() + 8); // Add 8 hours to account for GMT+8 time zone
                     const combinedEndDate = `${endDate.toISOString().split('T')[0]}T${end_time}:00`;
-                    console.log(combinedStartDate);
-                    console.log(combinedEndDate);
-                    console.log(parsedChineseDate);
-                    if (date < new Date(today)) {
+                    // console.log(combinedStartDate);
+                    // console.log(combinedEndDate);
+                    // console.log(parsedChineseDate);
+                    if (date < new Date()) {
                         continue;
                     }
                     timetable_vm.addEvent(username+" ("+cab_type+")", parsedChineseDate, new Date(combinedStartDate), new Date(combinedEndDate));
                 }
-                console.log(vm_booking_data);
-                // timetable.addEvent('Frankadelic', 'Nile', new Date(2015,7,17,10,45), new Date(2015,7,17,12,30));
+                // console.log(vm_booking_data);
+                // notes: 
                 // var options = {
                 // url: '#', // makes the event clickable
                 // class: 'vip', // additional css class
@@ -261,7 +251,7 @@
                 // },
                 // onClick: function(event, timetable, clickEvent) {} // custom click handler, which is passed the event object and full timetable as context  
                 // };
-                // timetable.addEvent('Jam Session', 'Nile', new Date(2015,7,17,21,15), new Date(2015,7,17,23,30), options);
+                // timetable.addEvent('event', 'loc', new Date(2015,7,17,21,15), new Date(2015,7,17,23,30), options);
                 var renderer = new Timetable.Renderer(timetable_vm);
                 renderer.draw('.timetable-vm'); // any css selector
                 $("#table_iidx").hide().fadeIn(500);
@@ -273,7 +263,7 @@
 
             function randomizeColors() {
                 const timeEntries = document.querySelectorAll('.time-entry');
-                console.log('randomizeColors called, timeEntries:', timeEntries);
+                // console.log('randomizeColors called, timeEntries:', timeEntries);
                 timeEntries.forEach((timeEntry) => {
                     const text = timeEntry.innerText;
                     const seedA = (text + 'a').split('').reduce((a, b) => a + b.charCodeAt(0), 0);
