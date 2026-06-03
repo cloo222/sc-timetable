@@ -83,7 +83,7 @@
 } */
 
 .background-layer {
-    background-image: url(img/silvercord.png);
+    background-image: url(../img/silvercord.png);
     z-index: -5;
     background-repeat: no-repeat;
     position: fixed;
