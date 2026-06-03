@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <title>新港機城SILVERCORD - 預約時間表</title>
+    <!-- for discord embed -->
+    <meta content="新港機城SILVERCORD - 預約時間表" property="og:title" />
+    <!-- <meta content="新港機城SILVERCORD" property="og:description" />
+    <meta content="" property="og:url" />
+    <meta content="" property="og:image" />
+    <meta content="#062765" data-react-helmet="true" name="theme-color" /> -->
+    <meta name="twitter:card" content="summary_large_image">
+
+    <link rel="icon" type="image/x-icon" href="/bms-table/img/favicon.ico">
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="bmstable" content="header.json" />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous">
+    </script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js'></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c&family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="styles/timetablejs.css">
+    <script src="scripts/timetable.js"></script>
+</head>
+
+<body class="container-layer noto-sans-jp-san-serif">
+    <header class="mb-3">
+        <nav class="navbar navbar-dark navbar-custom fixed-top shadow-sm header-element">
+            <div class="container-fluid d-flex flex-nowrap">
+                <span class="navbar-brand mb-0 h1" style="color: #1f700f">新港機城SILVERCORD 預約時間表</span>
+                <span class="text-light mb-0" id="clock" style="white-space: nowrap;"></span>
+            </div>
+        </nav>
+    </header>
+    <div class="background-layer noselect">  
+
+    </div>
+    <div class="background-layer-2" id="cursorlayer"></div>
+    <div class="container-xxl top-margin">
+        <div class="container-xxl text-center">
+            <div class="row">
+                <div class="col box-link">
+                    <a href="https://forms.gle/Frwr2zT2RTEz1LrBA" target="_blank">
+                        <div style="padding: 10px">
+                            包機申請表格
+                        </div>
+                    </a>
+                </div>
+                <div class="col box-link">
+                    <a href="https://www.facebook.com/Silvercordgame" target="_blank">
+                        <div style="padding: 10px">
+                            Facebook專頁
+                        </div>
+                    </a>
+                </div>
+                <div class="col box-link">
+                    <a href="https://www.youtube.com/@SilvercordTST" target="_blank">
+                        <div style="padding: 10px">
+                            Youtube
+                        </div>
+                    </a>
+                </div>
+                <div class="col box-link">
+                    <a href="https://discord.gg/Jg5hfUGVu2" target="_blank">
+                        <div style="padding: 10px">
+                            私立香港音ゲー學園 Discord
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="alert alert-dark mb-3 shadow-sm" role="alert">
+            <a href="https://forms.gle/Frwr2zT2RTEz1LrBA" class="alert-link">BOOKING FORM</a>
+            -
+            <a href="https://www.facebook.com/Silvercordgame" class="alert-link">Facebook</a>
+            -
+            <a href="https://www.youtube.com/@SilvercordTST" class="alert-link">Youtube</a>
+            -
+            <a href="https://discord.gg/Jg5hfUGVu2" class="alert-link">私立香港音ゲー學園 Discord</a>
+        </div> -->
+
+        <div class="bg-white shadow-lg mb-3 mt-3">
+            <span class="d-flex justify-content-center align-items-center iidx-header">
+                <h4 class="iidx-title">beatmaniaIIDX LIGHTNING MODEL</h4>
+            </span>
+            
+            <div class="timetable timetable-lm loading" id="table_iidx"><p>Loading...</p></div>
+        </div>
+
+        <div class="bg-white shadow-lg">
+            <span class="d-flex justify-content-center align-items-center sdvx-header">
+                <h4 class="sdvx-title">SOUND VOLTEX VALKYRIE MODEL</h4>
+            </span>
+
+            <div class="timetable timetable-vm loading" id="table_sdvx"><p>Loading...</p></div>
+        </div>
+
+        <script language="javascript" type="text/javascript">
+            var total_count = 0;
+            $(document).ready(function () {
+                var bookinglink = "https://script.google.com/macros/s/AKfycbwmZl9Wv14mJysfdGc1_y12GzNK0djb167u9Oqrvz8rEcBZGvnGi5JHa6wfSembQxEKXg/exec";
+                $.getJSON(bookinglink, function (information) {
+                    console.log("loading");
+                    console.log(information); 
+                    loadTimeTable(information);
+                });
+            });
+
+            function getDateWithChineseWeekday(date) {
+                const options = { timeZone: 'Asia/Hong_Kong', weekday: 'long', year: 'numeric', month: 'numeric', day: 'numeric' };
+                const formattedDate = date.toLocaleDateString('zh-CN', options);
+                const weekdayIndex = date.getUTCDay(); // Use getUTCDay() instead of getDay() to get the UTC weekday index
+                const weekdays = ['日', '一', '二', '三', '四', '五', '六'];
+                const chineseWeekday = weekdays[weekdayIndex];
+                return `${date.toISOString().split('T')[0]} (${chineseWeekday})`;
+            }
+
+            function loadTimeTable(data) {
+                //LM
+                var timetable_lm = new Timetable();
+                timetable_lm.setScope(8, 1);
+                // Instead of locations, generate a list of string of dates of the next 15 days
+                const today = new Date();
+                const dates = [];
+
+                for (let i = 0; i < 15; i++) {
+                    const date = new Date(today);
+                    date.setDate(date.getDate() + i);
+                    date.setUTCHours(date.getUTCHours() + 8); // Add 8 hours to account for GMT+8 time zone
+                    const dateWithChineseWeekday = getDateWithChineseWeekday(date);
+                    dates.push(dateWithChineseWeekday);
+                    console.log("adding date:", dateWithChineseWeekday);
+                }
+
+                timetable_lm.addLocations(dates);
+                // parse each lm_booking entry
+                lm_booking_data = data[0]["lm_booking"];
+                for (var i = 0; i < lm_booking_data.length; i++) {
+                    var start_time = lm_booking_data[i]["開始時間"];
+                    var end_time = lm_booking_data[i]["結束時間"];
+                    var duration = lm_booking_data[i]["HOURS"];
+                    var username = lm_booking_data[i]["遊戲內的暱稱"];
+                    var booking_date = lm_booking_data[i]["預約日期"];
+
+                    const dateString = booking_date;
+                    const date = new Date(dateString);
+                    date.setUTCHours(date.getUTCHours() + 8);
+                    const options = { timeZone: 'Asia/Hong_Kong' };
+                    const formattedDate = date.toLocaleDateString('en-US', options);
+                    const parsedChineseDate = getDateWithChineseWeekday(date);
+
+                    console.log(start_time + " " + end_time + " " + duration + " " + username + " " + booking_date);
+                    console.log(formattedDate); // Output: 5/24/2026, Monday
+                    const [hours, minutes] = start_time.split(':');
+                    const startDate = new Date(formattedDate);
+                    startDate.setHours(parseInt(hours));
+                    startDate.setMinutes(parseInt(minutes));
+                    const combinedStartDate = `${startDate.toISOString().split('T')[0]}T${start_time}:00`;
+
+                    const [hours2, minutes2] = end_time.split(':');
+                    const endDate = new Date(formattedDate);
+                    endDate.setHours(parseInt(hours2));
+                    endDate.setMinutes(parseInt(minutes2));
+                    endDate.setUTCHours(endDate.getUTCHours() + 8); // Add 8 hours to account for GMT+8 time zone
+                    const combinedEndDate = `${endDate.toISOString().split('T')[0]}T${end_time}:00`;
+                    console.log(combinedStartDate);
+                    console.log(combinedEndDate);
+                    console.log(parsedChineseDate);
+
+                    if (date < new Date()) {
+                        console.log("date " + date + " is in the past");
+                        continue;
+                    }
+                    timetable_lm.addEvent(username, parsedChineseDate, new Date(combinedStartDate), new Date(combinedEndDate));
+                }
+                console.log(lm_booking_data);
+                // timetable.addEvent('Frankadelic', 'Nile', new Date(2015,7,17,10,45), new Date(2015,7,17,12,30));
+                // var options = {
+                // url: '#', // makes the event clickable
+                // class: 'vip', // additional css class
+                // data: { // each property will be added to the data-* attributes of the DOM node for this event
+                //     id: 4,
+                //     ticketType: 'VIP'
+                // },
+                // onClick: function(event, timetable, clickEvent) {} // custom click handler, which is passed the event object and full timetable as context  
+                // };
+                // timetable.addEvent('Jam Session', 'Nile', new Date(2015,7,17,21,15), new Date(2015,7,17,23,30), options);
+                var renderer = new Timetable.Renderer(timetable_lm);
+                renderer.draw('.timetable-lm'); // any css selector
+
+                //VM
+                var timetable_vm = new Timetable();
+                timetable_vm.setScope(8, 1);
+                // Instead of locations, generate a list of string of dates of the next 15 days
+                // const today = new Date();
+                // const dates = [];
+
+                // for (let i = 0; i < 15; i++) {
+                //     const date = new Date(today);
+                //     date.setDate(date.getDate() + i);
+                //     date.setUTCHours(date.getUTCHours() + 8); // Add 8 hours to account for GMT+8 time zone
+                //     const dateWithChineseWeekday = getDateWithChineseWeekday(date);
+                //     dates.push(dateWithChineseWeekday);
+                // }
+
+                timetable_vm.addLocations(dates);
+                // parse each vm_booking entry
+                vm_booking_data = data[1]["vm_booking"];
+                for (var i = 0; i < vm_booking_data.length; i++) {
+                    var start_time = vm_booking_data[i]["開始時間"];
+                    var end_time = vm_booking_data[i]["結束時間"];
+                    var duration = vm_booking_data[i]["HOURS"];
+                    var cab_type = vm_booking_data[i]["預約機種"];
+                    var username = vm_booking_data[i]["遊戲內的暱稱"];
+                    var booking_date = vm_booking_data[i]["預約日期"];
+
+                    const dateString = booking_date;
+                    const date = new Date(dateString);
+                    date.setUTCHours(date.getUTCHours() + 8);
+                    const options = { timeZone: 'Asia/Hong_Kong' };
+                    const formattedDate = date.toLocaleDateString('en-US', options);
+                    const parsedChineseDate = getDateWithChineseWeekday(date);
+
+                    console.log(start_time + " " + end_time + " " + duration + " " + username + " " + booking_date);
+                    console.log(formattedDate); // Output: 5/24/2026, Monday
+                    const [hours, minutes] = start_time.split(':');
+                    const startDate = new Date(formattedDate);
+                    startDate.setHours(parseInt(hours));
+                    startDate.setMinutes(parseInt(minutes));
+                    const combinedStartDate = `${startDate.toISOString().split('T')[0]}T${start_time}:00`;
+
+                    const [hours2, minutes2] = end_time.split(':');
+                    const endDate = new Date(formattedDate);
+                    endDate.setHours(parseInt(hours2));
+                    endDate.setMinutes(parseInt(minutes2));
+                    endDate.setUTCHours(endDate.getUTCHours() + 8); // Add 8 hours to account for GMT+8 time zone
+                    const combinedEndDate = `${endDate.toISOString().split('T')[0]}T${end_time}:00`;
+                    console.log(combinedStartDate);
+                    console.log(combinedEndDate);
+                    console.log(parsedChineseDate);
+                    if (date < new Date(today)) {
+                        continue;
+                    }
+                    timetable_vm.addEvent(username+" ("+cab_type+")", parsedChineseDate, new Date(combinedStartDate), new Date(combinedEndDate));
+                }
+                console.log(vm_booking_data);
+                // timetable.addEvent('Frankadelic', 'Nile', new Date(2015,7,17,10,45), new Date(2015,7,17,12,30));
+                // var options = {
+                // url: '#', // makes the event clickable
+                // class: 'vip', // additional css class
+                // data: { // each property will be added to the data-* attributes of the DOM node for this event
+                //     id: 4,
+                //     ticketType: 'VIP'
+                // },
+                // onClick: function(event, timetable, clickEvent) {} // custom click handler, which is passed the event object and full timetable as context  
+                // };
+                // timetable.addEvent('Jam Session', 'Nile', new Date(2015,7,17,21,15), new Date(2015,7,17,23,30), options);
+                var renderer = new Timetable.Renderer(timetable_vm);
+                renderer.draw('.timetable-vm'); // any css selector
+                $("#table_iidx").hide().fadeIn(500);
+                $("#table_sdvx").hide().fadeIn(500);
+                $("#table_iidx").removeClass("loading").addClass("loaded");
+                $("#table_sdvx").removeClass("loading").addClass("loaded");
+                randomizeColors();
+            }
+
+            function randomizeColors() {
+                const timeEntries = document.querySelectorAll('.time-entry');
+                console.log('randomizeColors called, timeEntries:', timeEntries);
+                timeEntries.forEach((timeEntry) => {
+                    const text = timeEntry.innerText;
+                    const seedA = (text + 'a').split('').reduce((a, b) => a + b.charCodeAt(0), 0);
+                    const seedB = (text + 'b').split('').reduce((a, b) => a + b.charCodeAt(0), 0);
+                    const seedC = (text + 'c').split('').reduce((a, b) => a + b.charCodeAt(0), 0);
+                    const randomA = mulberry32(seedA)();
+                    const randomB = mulberry32(seedB)();
+                    const randomC = mulberry32(seedC)();
+                    // console.log('randomA:', randomA, 'randomB:', randomB, 'randomC:', randomC);
+                    const r = Math.floor(randomA * 76) + 180;
+                    const g = Math.floor(randomB * 76) + 180;
+                    const b = Math.floor(randomC * 76) + 180;
+                    // console.log('text:', text, 'r:', r, 'g:', g, 'b:', b);
+                    const color = `rgb(${r}, ${g}, ${b})`;
+                    timeEntry.style.color = darkenColor(color, 0.95);
+                    timeEntry.style.backgroundColor = color;
+                    timeEntry.style.borderColor = darkenColor(color, 0.2);
+                    timeEntry.classList.add('timetable-entry');
+                    timeEntry.addEventListener('mouseover', () => {
+                        timeEntry.style.backgroundColor = darkenColor(color, 0.2);
+                        timeEntry.style.borderColor = darkenColor(color, 0.5);
+                        timeEntry.classList.add('timetable-entry:hover');
+                    });
+                    timeEntry.addEventListener('mouseout', () => {
+                        timeEntry.style.backgroundColor = color;
+                        timeEntry.style.borderColor = darkenColor(color, 0.2);
+                        timeEntry.classList.remove('timetable-entry:hover');
+                    });
+                });
+            }
+
+            function darkenColor(color, factor) {
+                const [r, g, b] = color.match(/\d+/g);
+                const newR = Math.max(0, Math.min(255, parseInt(r, 10) * (1 - factor)));
+                const newG = Math.max(0, Math.min(255, parseInt(g, 10) * (1 - factor)));
+                const newB = Math.max(0, Math.min(255, parseInt(b, 10) * (1 - factor)));
+                return `rgb(${newR}, ${newG}, ${newB})`;
+            }
+
+            function mulberry32(a) {
+                return function() {
+                var t = a += 0x6D2B79F5;
+                t = Math.imul(t ^ t >>> 15, t | 1);
+                t ^= t + Math.imul(t ^ t >>> 7, t | 61);
+                return ((t ^ t >>> 14) >>> 0) / 4294967296;
+                }
+            }
+
+            // clock
+            var urlParams;
+            (function () {
+                var match,
+                    pl     = /\+/g,  // Regex for replacing addition symbol with a space
+                    search = /([^&=]+)=?([^&]*)/g,
+                    decode = function (s) { return decodeURIComponent(s.replace(pl, " ")); },
+                    query  = window.location.search.substring(1);
+
+                urlParams = {};
+                while (match = search.exec(query))
+                urlParams[decode(match[1])] = decode(match[2]);
+            })();
+
+            var output = document.getElementById("clock");
+            // if (urlParams["style"]) output.setAttribute("style", urlParams["style"]);
+            // if (urlParams["bodyStyle"]) document.body.setAttribute("style", urlParams["bodyStyle"]);
+
+            clockFormat = "YYYY-MM-DD HH:mm:ss";
+            var c;
+            setInterval(
+            c = function() {
+                output.innerText = moment().format(clockFormat);
+            }, 1000);
+            c();
+
+        </script>
+    </div>
+
+</html>

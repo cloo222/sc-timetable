@@ -1,0 +1,179 @@
+.navbar-custom {
+    background-color: #e49835;
+}
+
+.box-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #ccc;
+  border-right: none;
+  background-color: #e5f5ff;
+  cursor: pointer;
+  user-select: none; 
+}
+
+.box-link:last-child {
+  border-right: 2px solid #ccc;
+}
+
+.box-link a {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+
+.box-link:hover {
+  background-color: #d2efff;
+  text-decoration: none;
+}
+
+.iidx-header {
+    background-image: linear-gradient(to bottom, #cafa4f, #ffffff);
+    height: 64px;
+}
+
+.iidx-title {
+    color:#232815;
+    text-shadow: 1px 1px 5px rgb(172, 223, 32);
+}
+
+.loading {
+    max-height: 24px;
+    overflow: hidden;
+    transition: max-height .5s cubic-bezier(0.83, 0, 0.17, 1);
+}
+
+.loaded {
+    max-height: 1000px;
+    transition: max-height .5s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.sdvx-header {
+  background-image: linear-gradient(to right, #738a30, #232815, #232815, #738a30);
+  background-size: 100% 200%;
+  background-position: 0% 50%, 0% 50%, 50% 50%;
+  height: 64px;
+}
+
+.sdvx-title {
+    color:#0e130a;
+    text-shadow: -1px -1px 0 #ffffff, 1px -1px 0 #ffffff, -1px 1px 0 #ffffff, 1px 1px 0 #ffffff;
+    background-clip: text;
+}
+
+
+/* .background-layer {
+    background-image: linear-gradient(-45deg, #abf5ff, #d7e9f5);
+    background-size: 200% 200%;
+    animation: gradient 5s ease infinite;
+    background-attachment: fixed;
+    background-image: url(img/silvercord.png);
+    text-shadow: #77777780 2px 2px 4px;
+    color:#2c2d30;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    z-index: -1;
+    font-size: 24px;
+} */
+
+.background-layer {
+    background-image: url(img/silvercord.png);
+    z-index: -5;
+    background-repeat: no-repeat;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-size: cover;
+    background-position: center;
+    backdrop-filter: blur(8px) brightness(70%);
+    filter: blur(8px) brightness(70%);
+    opacity: 0.5;
+}
+
+.middle-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  backdrop-filter: blur(10px);
+  z-index: 1;
+}
+
+.background-fade {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(to right, rgba(255, 255, 255, 0), white);
+  background-repeat: no-repeat;
+  z-index: -1;
+}
+
+.table-loading {
+  opacity: 0;
+  height: 0;
+  overflow: hidden;
+  transition: opacity 0.5s ease-in-out, height 0.5s ease-in-out;
+}
+
+.table-loaded {
+  opacity: 1;
+  height: auto;
+  transition: opacity 0.5s ease-in-out, height 0.5s ease-in-out;
+}
+
+.background-layer-2 {
+    /* background-color: #d7e5ff; */
+    z-index: -2;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Old versions of Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
+}
+
+.container-layer {
+    position: relative;
+    width: 100%;
+    /* height: 100vh; */
+    /* overflow: auto; */
+}
+
+.top-margin {
+    margin-top: 64px;
+}
+
+.m-plus-rounded-1c-regular {
+  font-family: "M PLUS Rounded 1c", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.noto-sans-jp-san-serif {
+  font-family: "Noto Sans JP", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
