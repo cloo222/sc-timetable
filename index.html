@@ -154,20 +154,20 @@
                     const startDate = new Date(formattedDate);
                     startDate.setHours(parseInt(hours));
                     startDate.setMinutes(parseInt(minutes));
-                    const combinedStartDate = `${startDate.toISOString().split('T')[0]}T${start_time}:00`;
+                    // const combinedStartDate = `${startDate.toISOString().split('T')[0]}T${start_time}:00`;
 
                     const [hours2, minutes2] = end_time.split(':');
                     const endDate = new Date(formattedDate);
                     endDate.setHours(parseInt(hours2));
                     endDate.setMinutes(parseInt(minutes2));
                     // endDate.setUTCHours(endDate.getUTCHours() + 8); // Add 8 hours to account for GMT+8 time zone
-                    const combinedEndDate = `${endDate.toISOString().split('T')[0]}T${end_time}:00`;
-                    // console.log(combinedStartDate);
-                    // console.log(combinedEndDate);
+                    // const combinedEndDate = `${endDate.toISOString().split('T')[0]}T${end_time}:00`;
+                    console.log(startDate);
+                    console.log(endDate);
                     // console.log(parsedChineseDate);
 
                     if (dates.includes(parsedChineseDate)){
-                        timetable_lm.addEvent(username, parsedChineseDate, new Date(combinedStartDate), new Date(combinedEndDate));
+                        timetable_lm.addEvent(username, parsedChineseDate, startDate, endDate);
                     }
                 }
                 // console.log(lm_booking_data);
@@ -202,19 +202,19 @@
                     const startDate = new Date(formattedDate);
                     startDate.setHours(parseInt(hours));
                     startDate.setMinutes(parseInt(minutes));
-                    const combinedStartDate = `${startDate.toISOString().split('T')[0]}T${start_time}:00`;
+                    // const combinedStartDate = `${startDate.toISOString().split('T')[0]}T${start_time}:00`;
 
                     const [hours2, minutes2] = end_time.split(':');
                     const endDate = new Date(formattedDate);
                     endDate.setHours(parseInt(hours2));
                     endDate.setMinutes(parseInt(minutes2));
                     // endDate.setUTCHours(endDate.getUTCHours() + 8); // Add 8 hours to account for GMT+8 time zone
-                    const combinedEndDate = `${endDate.toISOString().split('T')[0]}T${end_time}:00`;
-                    // console.log(combinedStartDate);
-                    // console.log(combinedEndDate);
+                    // const combinedEndDate = `${endDate.toISOString().split('T')[0]}T${end_time}:00`;
+                    console.log(startDate);
+                    console.log(endDate);
                     // console.log(parsedChineseDate);
                     if (dates.includes(parsedChineseDate)){
-                        timetable_vm.addEvent(username+" ("+cab_type+")", parsedChineseDate, new Date(combinedStartDate), new Date(combinedEndDate));
+                        timetable_vm.addEvent(username+" ("+cab_type+")", parsedChineseDate, startDate, endDate);
                     }
                 }
                 // console.log(vm_booking_data);
