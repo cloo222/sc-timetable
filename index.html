@@ -99,7 +99,7 @@
                 var bookinglink = "https://script.google.com/macros/s/AKfycbwmZl9Wv14mJysfdGc1_y12GzNK0djb167u9Oqrvz8rEcBZGvnGi5JHa6wfSembQxEKXg/exec";
                 $.getJSON(bookinglink, function (information) {
                     console.log("fetching data...");
-                    // console.log(information); 
+                    console.log(information); 
                     loadTimeTable(information);
                 });
             });
@@ -127,7 +127,7 @@
                     date.setUTCHours(date.getUTCHours() + 8); // Add 8 hours to account for GMT+8 time zone
                     const dateWithChineseWeekday = getDateWithChineseWeekday(date);
                     dates.push(dateWithChineseWeekday);
-                    // console.log("adding date:", dateWithChineseWeekday);
+                    console.log("adding date:", dateWithChineseWeekday);
                 }
 
                 timetable_lm.addLocations(dates);
@@ -136,7 +136,7 @@
                 for (var i = 0; i < lm_booking_data.length; i++) {
                     var start_time = lm_booking_data[i]["開始時間"];
                     var end_time = lm_booking_data[i]["結束時間"];
-                    var duration = lm_booking_data[i]["HOURS"];
+                    // var duration = lm_booking_data[i]["HOURS"];
                     var username = lm_booking_data[i]["遊戲內的暱稱"];
                     var booking_date = lm_booking_data[i]["預約日期"];
 
@@ -147,7 +147,7 @@
                     const formattedDate = date.toLocaleDateString('en-US', options);
                     const parsedChineseDate = getDateWithChineseWeekday(date);
 
-                    // console.log(start_time + " " + end_time + " " + duration + " " + username + " " + booking_date);
+                    // console.log(start_time + " " + end_time + " " + username + " " + booking_date);
                     // console.log(formattedDate); // Output: 5/24/2026, Monday
                     const [hours, minutes] = start_time.split(':');
                     const startDate = new Date(formattedDate);
@@ -159,16 +159,15 @@
                     const endDate = new Date(formattedDate);
                     endDate.setHours(parseInt(hours2));
                     endDate.setMinutes(parseInt(minutes2));
-                    endDate.setUTCHours(endDate.getUTCHours() + 8); // Add 8 hours to account for GMT+8 time zone
+                    // endDate.setUTCHours(endDate.getUTCHours() + 8); // Add 8 hours to account for GMT+8 time zone
                     const combinedEndDate = `${endDate.toISOString().split('T')[0]}T${end_time}:00`;
-                    // console.log(combinedStartDate);
-                    // console.log(combinedEndDate);
+                    console.log(combinedStartDate);
+                    console.log(combinedEndDate);
                     // console.log(parsedChineseDate);
 
-                    if (date < new Date()) {
-                        continue;
+                    if (dates.includes(parsedChineseDate)){
+                        timetable_lm.addEvent(username, parsedChineseDate, new Date(combinedStartDate), new Date(combinedEndDate));
                     }
-                    timetable_lm.addEvent(username, parsedChineseDate, new Date(combinedStartDate), new Date(combinedEndDate));
                 }
                 // console.log(lm_booking_data);
                 var renderer = new Timetable.Renderer(timetable_lm);
@@ -184,7 +183,7 @@
                 for (var i = 0; i < vm_booking_data.length; i++) {
                     var start_time = vm_booking_data[i]["開始時間"];
                     var end_time = vm_booking_data[i]["結束時間"];
-                    var duration = vm_booking_data[i]["HOURS"];
+                    // var duration = vm_booking_data[i]["HOURS"];
                     var cab_type = vm_booking_data[i]["預約機種"];
                     var username = vm_booking_data[i]["遊戲內的暱稱"];
                     var booking_date = vm_booking_data[i]["預約日期"];
@@ -208,15 +207,14 @@
                     const endDate = new Date(formattedDate);
                     endDate.setHours(parseInt(hours2));
                     endDate.setMinutes(parseInt(minutes2));
-                    endDate.setUTCHours(endDate.getUTCHours() + 8); // Add 8 hours to account for GMT+8 time zone
+                    // endDate.setUTCHours(endDate.getUTCHours() + 8); // Add 8 hours to account for GMT+8 time zone
                     const combinedEndDate = `${endDate.toISOString().split('T')[0]}T${end_time}:00`;
                     // console.log(combinedStartDate);
                     // console.log(combinedEndDate);
                     // console.log(parsedChineseDate);
-                    if (date < new Date()) {
-                        continue;
+                    if (dates.includes(parsedChineseDate)){
+                        timetable_vm.addEvent(username+" ("+cab_type+")", parsedChineseDate, new Date(combinedStartDate), new Date(combinedEndDate));
                     }
-                    timetable_vm.addEvent(username+" ("+cab_type+")", parsedChineseDate, new Date(combinedStartDate), new Date(combinedEndDate));
                 }
                 // console.log(vm_booking_data);
                 // notes: 
