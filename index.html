@@ -22,6 +22,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous">
     </script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js'></script>
+    <script src='scripts/moment-timezone-with-data.js'></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c&family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet">
@@ -99,7 +100,7 @@
                 var bookinglink = "https://script.google.com/macros/s/AKfycbwmZl9Wv14mJysfdGc1_y12GzNK0djb167u9Oqrvz8rEcBZGvnGi5JHa6wfSembQxEKXg/exec";
                 $.getJSON(bookinglink, function (information) {
                     console.log("fetching data...");
-                    console.log(information); 
+                    // console.log(information); 
                     loadTimeTable(information);
                 });
             });
@@ -127,7 +128,7 @@
                     date.setUTCHours(date.getUTCHours() + 8); // Add 8 hours to account for GMT+8 time zone
                     const dateWithChineseWeekday = getDateWithChineseWeekday(date);
                     dates.push(dateWithChineseWeekday);
-                    console.log("adding date:", dateWithChineseWeekday);
+                    // console.log("adding date:", dateWithChineseWeekday);
                 }
 
                 timetable_lm.addLocations(dates);
@@ -161,8 +162,8 @@
                     endDate.setMinutes(parseInt(minutes2));
                     // endDate.setUTCHours(endDate.getUTCHours() + 8); // Add 8 hours to account for GMT+8 time zone
                     const combinedEndDate = `${endDate.toISOString().split('T')[0]}T${end_time}:00`;
-                    console.log(combinedStartDate);
-                    console.log(combinedEndDate);
+                    // console.log(combinedStartDate);
+                    // console.log(combinedEndDate);
                     // console.log(parsedChineseDate);
 
                     if (dates.includes(parsedChineseDate)){
@@ -310,7 +311,7 @@
             var c;
             setInterval(
             c = function() {
-                output.innerText = moment().format(clockFormat);
+                output.innerText = moment().tz("Asia/Hong_Kong").format(clockFormat);
             }, 1000);
             c();
 
