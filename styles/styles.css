@@ -52,8 +52,13 @@
 }
 
 .loading {
-    max-height: 24px;
+    max-height: 60px;
     overflow: hidden;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
     transition: max-height .5s cubic-bezier(0.83, 0, 0.17, 1);
 }
 
