@@ -14,6 +14,13 @@
   /* padding: 10px; */
 }
 
+.short-text { display: none; }
+
+@media (max-width: 600px) {
+    .short-text { display: inline-block; }
+    .full-text { display: none; }
+}
+
 /* .box-link:last-child {
   @media screen and (min-width: 576px) {
     border-right: 2px solid #ccc;

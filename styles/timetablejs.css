@@ -1,3 +1,9 @@
+:root{
+    --normal-height: 44px;
+    --small-height: 36px;
+    --grid-width: 96px;
+}
+
 .timetable {
     display: flex;
     align-items: stretch;
@@ -25,15 +31,27 @@
     flex: none;
     max-width: 30%;
     padding: 0 !important;
-    margin-top: 46px;
+    /* margin-top: 46px; */
     border-right: 5px solid transparent;
-    position: relative
+    position: relative;
+    @media screen and (max-width: 600px) {
+        margin-top: calc(var(--small-height));
+    }
+    @media screen and (min-width: 601px) {
+        margin-top: calc(var(--normal-height));
+    }
 }
 
 .timetable>aside li {
-    padding: 0 15px;
+    padding: 0 10px;
     background-color: #efefef;
-    line-height: 46px
+    /* line-height: 46px; */
+    @media screen and (max-width: 600px) {
+        line-height: calc(var(--small-height));
+    }
+    @media screen and (min-width: 601px) {
+        line-height: calc(var(--normal-height));
+    }
 }
 
 .timetable>aside li:not(:last-of-type) {
@@ -59,15 +77,29 @@
     content: "";
     display: block;
     background-color: #fff;
-    height: 46px;
+    /* height: 46px; */
     position: relative;
-    margin-top: -46px;
-    top: 0
+    /* margin-top: -46px; */
+    top: 0;
+    @media screen and (max-width: 600px) {
+        height: var(--small-height);
+        margin-top: calc(var(--small-height) * -1);
+    }
+    @media screen and (min-width: 601px) {
+        height: var(--normal-height);
+        margin-top: calc(var(--normal-height) * -1);
+    }
 }
 
 .timetable aside li,
 .timetable time li {
-    height: 46px
+    /* height: 46px; */
+    @media screen and (max-width: 600px) {
+        height: var(--small-height);
+    }
+    @media screen and (min-width: 601px) {
+        height: var(--normal-height);
+    }
 }
 
 .timetable>section {
@@ -96,14 +128,27 @@
 .timetable>section>header ul {
     display: flex;
     height: 46px;
-    align-items: center
+    align-items: center;
+    @media screen and (max-width: 600px) {
+        height: var(--small-height);
+    }
+    @media screen and (min-width: 601px) {
+        height: var(--normal-height);
+    }
 }
 
 .timetable>section>header li {
     flex: none;
     display: block;
     position: relative;
-    width: 96px
+    width: var(--grid-width);
+    /* font-size: 75%; */
+    @media screen and (max-width: 600px) {
+        font-size: 75%;
+    }
+    @media screen and (min-width: 601px) {
+        font-size: 100%;
+    }
 }
 
 .timetable>section>header li .time-label {
@@ -134,7 +179,13 @@
 .timetable ul.room-timeline li {
     position: relative;
     background-color: #f4f4f4;
-    height: 46px
+    /* height: 46px */
+    @media screen and (max-width: 600px) {
+        height: var(--small-height);
+    }
+    @media screen and (min-width: 601px) {
+        height: var(--normal-height);
+    }
 }
 
 .timetable ul.room-timeline li:nth-of-type(odd) {
@@ -154,7 +205,13 @@
 }
 
 .timetable ul.room-timeline li:first-child .time-entry {
-    height: 44px
+    height: 44px;
+    @media screen and (max-width: 600px) {
+        height: calc(var(--small-height) - 2px);
+    }
+    @media screen and (min-width: 601px) {
+        height: calc(var(--normal-height) - 2px);
+    }
 }
 
 .timetable ul.room-timeline li:after,
@@ -170,19 +227,19 @@
 
 .timetable ul.room-timeline li:before {
     background-image: linear-gradient(90deg, #e5e5e5 1px, transparent 0);
-    background-size: 24px auto
+    background-size: calc(var(--grid-width) / 2) auto
 }
 
 .timetable ul.room-timeline li:after {
     background-image: linear-gradient(90deg, #e5e5e5, #e5e5e5 1px, #f4f4f4 0, #f4f4f4 2px, #e5e5e5 0, #e5e5e5 3px, transparent 0, transparent);
-    background-size: 96px auto;
+    background-size: var(--grid-width) auto;
     background-position: -2px 0
 }
 
 .timetable .time-entry {
     background-color: #ebebeb;
     transition: background-color .2s;
-    height: 45px;
+    /* height: 45px; */
     display: block;
     position: absolute;
     z-index: 2;
@@ -191,7 +248,13 @@
     overflow: hidden;
     color: #fff;
     border: 1px solid #808080;
-    transform-style: preserve-3d
+    transform-style: preserve-3d;
+    @media screen and (max-width: 600px) {
+        height: calc(var(--small-height) - 1px);
+    }
+    @media screen and (min-width: 601px) {
+        height: calc(var(--normal-height) - 1px);
+    }
 }
 
 .timetable .time-entry small {
