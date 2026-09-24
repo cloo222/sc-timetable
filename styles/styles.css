@@ -42,19 +42,34 @@
 }
 
 .iidx-header {
-    background-image: linear-gradient(to bottom, #cafa4f, #ffffff);
+    background-image: linear-gradient(to bottom, #37027e, #120226);
     height: 64px;
 }
 
 .iidx-title {
-    color:#232815;
-    text-shadow: 1px 1px 5px rgb(172, 223, 32);
+    /* color:#f2ffd0; */
+    text-shadow: 1px 1px 5px rgb(160, 158, 161);
+    background: -webkit-linear-gradient(0deg, rgba(187, 170, 255, 1) 0%, rgba(170, 238, 255, 1) 17%, rgba(204, 238, 204, 1) 33%, rgba(238, 238, 187, 1) 50%, rgba(255, 204, 170, 1) 67%, rgba(255, 136, 238, 1) 83%, rgba(187, 170, 255, 1) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .loading {
     max-height: 60px;
     overflow: hidden;
     display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    transition: max-height .5s cubic-bezier(0.83, 0, 0.17, 1);
+}
+
+.error-message {
+    max-height: 60px;
+    overflow: hidden;
+    display: none;
     flex-direction: row;
     justify-content: center;
     align-items: center;
