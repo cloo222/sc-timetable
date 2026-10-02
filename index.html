@@ -120,9 +120,11 @@
 
             function loadTimeTable(data) {
                 try {
+                    const startTime = 8;
+                    const endTime = 0;
                     //LM
                     var timetable_lm = new Timetable();
-                    timetable_lm.setScope(8, 1);
+                    timetable_lm.setScope(startTime, endTime);
                     // Instead of locations, generate a list of string of dates of the next 15 days
                     const today = new Date();
                     const dates = [];
@@ -181,7 +183,7 @@
     
                     //VM
                     var timetable_vm = new Timetable();
-                    timetable_vm.setScope(8, 1);
+                    timetable_vm.setScope(startTime, endTime);
                     
                     timetable_vm.addLocations(dates);
                     // parse each vm_booking entry
