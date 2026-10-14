@@ -1,3 +1,23 @@
+#tooltip-custom {
+  display: inline-block;
+  position: fixed;
+  padding: .25em .5em;
+  background-color: #dbfdfa;
+  transition: opacity .2s ease-in-out;
+  opacity: 0;
+  font-size: 14px;
+  z-index: 10;
+}
+.tooltip-area:hover #tooltip-custom {
+  opacity: 0.9;
+  transition: opacity .2s ease-in-out;
+}
+
+/* .tooltip-custom:hover {
+  opacity: 1;
+  
+} */
+
 .navbar-custom {
     background-color: #e49835;
 }
@@ -14,11 +34,29 @@
   /* padding: 10px; */
 }
 
+.shop-title-text {
+  color: #1f700f;
+  font-weight: bold;
+  font-size: 20px;
+  text-wrap: nowrap;
+}
+
 .short-text { display: none; }
 
 @media (max-width: 600px) {
-    .short-text { display: inline-block; }
-    .full-text { display: none; }
+    .short-text { 
+      display: inline-block; 
+      font-size: 16px;
+    }
+    .full-text { 
+      display: none; 
+    }
+    .game-title {
+      font-size: 18px;
+    }
+    #clock {
+      display: none;
+    }
 }
 
 /* .box-link:last-child {
