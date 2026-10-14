@@ -41,9 +41,36 @@
   text-decoration: none;
 }
 
+.loading {
+  max-height: 60px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  transition: max-height .5s cubic-bezier(0.83, 0, 0.17, 1);
+}
+
+.error-message {
+  max-height: 60px;
+  overflow: hidden;
+  display: none;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  transition: max-height .5s cubic-bezier(0.83, 0, 0.17, 1);
+}
+
+.loaded {
+  max-height: 1000px;
+  transition: max-height .5s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
 .iidx-header {
-    background-image: linear-gradient(to bottom, #37027e, #120226);
-    height: 64px;
+  background-image: linear-gradient(to bottom, #37027e, #120226);
+  height: 64px;
 }
 
 .iidx-title {
@@ -55,33 +82,6 @@
     -webkit-text-fill-color: transparent;
 }
 
-.loading {
-    max-height: 60px;
-    overflow: hidden;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    padding: 10px;
-    transition: max-height .5s cubic-bezier(0.83, 0, 0.17, 1);
-}
-
-.error-message {
-    max-height: 60px;
-    overflow: hidden;
-    display: none;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    padding: 10px;
-    transition: max-height .5s cubic-bezier(0.83, 0, 0.17, 1);
-}
-
-.loaded {
-    max-height: 1000px;
-    transition: max-height .5s cubic-bezier(0.65, 0, 0.35, 1);
-}
-
 .sdvx-header {
   background-image: linear-gradient(to right, #738a30, #232815, #232815, #738a30);
   background-size: 100% 200%;
@@ -89,12 +89,77 @@
   height: 64px;
 }
 
-.sdvx-title {
+/* .sdvx-title {
     color:#0e130a;
     text-shadow: -1px -1px 0 #ffffff, 1px -1px 0 #ffffff, -1px 1px 0 #ffffff, 1px 1px 0 #ffffff;
     background-clip: text;
+} */
+
+.sdvx-title {
+  --stroke-color: rgb(244, 248, 239);
+  --stroke-width: 1px;
+  background-clip: text;
+  letter-spacing: var(--stroke-width);
+  color: #0f140b;
+  text-shadow: var(--stroke-width) 0 0 var(--stroke-color),
+    calc(var(--stroke-width) * -1) 0 0 var(--stroke-color),
+    0 var(--stroke-width) 0 var(--stroke-color),
+    0 calc(var(--stroke-width) * -1) 0 var(--stroke-color);
 }
 
+.popn-header {
+  background-image: linear-gradient(to right, #d45b5b, #f5f1f0, #fffacd, #e4e6ec, #6dd0dd);
+  background-size: 100% 200%;
+  background-position: 0% 50%, 0% 50%, 50% 50%;
+  height: 64px;
+}
+
+.popn-title {
+  --stroke-color: rgb(0, 0, 0);
+  --stroke-width: 1px;
+  letter-spacing: var(--stroke-width);
+  background-clip: text;
+  color: rgb(255, 238, 89);
+  text-shadow: var(--stroke-width) 0 0 var(--stroke-color),
+    calc(var(--stroke-width) * -1) 0 0 var(--stroke-color),
+    0 var(--stroke-width) 0 var(--stroke-color),
+    0 calc(var(--stroke-width) * -1) 0 var(--stroke-color);
+}
+
+.smooth-16 {
+  text-shadow: calc(var(--stroke-width) * 1) calc(var(--stroke-width) * 0) 0
+      var(--stroke-color),
+    calc(var(--stroke-width) * 0.9239) calc(var(--stroke-width) * 0.3827) 0
+      var(--stroke-color),
+    calc(var(--stroke-width) * 0.7071) calc(var(--stroke-width) * 0.7071) 0
+      var(--stroke-color),
+    calc(var(--stroke-width) * 0.3827) calc(var(--stroke-width) * 0.9239) 0
+      var(--stroke-color),
+    calc(var(--stroke-width) * 0) calc(var(--stroke-width) * 1) 0
+      var(--stroke-color),
+    calc(var(--stroke-width) * -0.3827) calc(var(--stroke-width) * 0.9239) 0
+      var(--stroke-color),
+    calc(var(--stroke-width) * -0.7071) calc(var(--stroke-width) * 0.7071) 0
+      var(--stroke-color),
+    calc(var(--stroke-width) * -0.9239) calc(var(--stroke-width) * 0.3827) 0
+      var(--stroke-color),
+    calc(var(--stroke-width) * -1) calc(var(--stroke-width) * 0) 0
+      var(--stroke-color),
+    calc(var(--stroke-width) * -0.9239) calc(var(--stroke-width) * -0.3827) 0
+      var(--stroke-color),
+    calc(var(--stroke-width) * -0.7071) calc(var(--stroke-width) * -0.7071) 0
+      var(--stroke-color),
+    calc(var(--stroke-width) * -0.3827) calc(var(--stroke-width) * -0.9239) 0
+      var(--stroke-color),
+    calc(var(--stroke-width) * 0) calc(var(--stroke-width) * -1) 0
+      var(--stroke-color),
+    calc(var(--stroke-width) * 0.3827) calc(var(--stroke-width) * -0.9239) 0
+      var(--stroke-color),
+    calc(var(--stroke-width) * 0.7071) calc(var(--stroke-width) * -0.7071) 0
+      var(--stroke-color),
+    calc(var(--stroke-width) * 0.9239) calc(var(--stroke-width) * -0.3827) 0
+      var(--stroke-color);
+}
 
 /* .background-layer {
     background-image: linear-gradient(-45deg, #abf5ff, #d7e9f5);
