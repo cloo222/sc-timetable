@@ -18,6 +18,12 @@
   
 } */
 
+.nav-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .navbar-custom {
     background-color: #e49835;
 }
